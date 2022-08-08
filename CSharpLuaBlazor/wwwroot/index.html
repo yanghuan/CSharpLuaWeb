@@ -1,0 +1,54 @@
+﻿<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./loading.css" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.9.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.33.0/min/vs/loader.js"></script>
+    <script src="./main.js"></script>
+</head>
+
+<body>
+  <app>Loading...</app>
+  <div id="loading" class="spinner" style="display: none;">
+    <div class="spinner-container container1">
+      <div class="circle1"></div>
+      <div class="circle2"></div>
+      <div class="circle3"></div>
+      <div class="circle4"></div>
+    </div>
+    <div class="spinner-container container2">
+      <div class="circle1"></div>
+      <div class="circle2"></div>
+      <div class="circle3"></div>
+      <div class="circle4"></div>
+    </div>
+    <div class="spinner-container container3">
+      <div class="circle1"></div>
+      <div class="circle2"></div>
+      <div class="circle3"></div>
+      <div class="circle4"></div>
+    </div>
+  </div>
+  <div id="try" style="position: fixed; top: 50px; bottom: 72px; padding-top: 10px; width: 100%;">
+    <div style="position: absolute; bottom: 0; top: 0; left: 20px; right: 50%; margin-right: 10px;">
+      <h5 style="display: inline;">C#</h5>
+      <select id="examples" style="color: black;display: inline-block;padding: 0;height: 19px;width: 190px; font-size: 12px;"></select>
+      <button id="runbutton" style="position: relative; top: 22px; left: -10px; z-index:10; float: right; display: none">Try Compile</button>
+      <div id="CSharpEditor" style="width: 100%; position: absolute; bottom: 0; top: 25px; left: 20px; border:1px solid grey"></div>
+    </div>
+    <div style="position: absolute; bottom: 0; top: 0; right: 20px; left: 50%; margin-left: 10px;">
+      <h5 style="display: inline;">Lua</h5>
+      <div id="LuaEditor" style="width: 100%; position: absolute; bottom: 0; top: 25px; left: 20px; border:1px solid grey"></div>
+    </div>
+  </div>
+  <footer style="width: 100%; margin-right: auto; margin-left: auto; position: absolute; bottom: 0">
+    <hr>
+    <p style="text-align: center">
+      <small>&copy; 2022  CSharp.lua</small>
+    </p>
+  </footer>
+  <script src="_framework/blazor.webassembly.js"></script>
+</body>
+</html>
