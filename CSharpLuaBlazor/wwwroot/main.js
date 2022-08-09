@@ -1,17 +1,16 @@
 $(function () {
-  var samples = [
-    "Hello World",
-    "Fibonacci",
-    "TimeoutQueue",
-    "Linq"
-  ];
-
-  $.each(samples, function (k, v) {
-    var path = "./csharp-codes/" + v.replace(" ", "-") + ".cs.txt"
-    $.get(path, function (data) {
-      var option = $("<option>").text("Sample: " + v).val(data);
-      $("#examples").append(option);
-    }, "text");
+  let max = 100
+  let count = 0
+  $.getJSON("https://api.github.com/repos/yanghuan/CSharpLuaWeb/contents/CSharpLuaBlazor/wwwroot/csharp-codes", function (data) {
+    max = data.length
+    $.each(data, function (k, v) {
+      let name = v.name.split('.')[0].replace("-", " ")
+      $.get(v.download_url, function (data) {
+        var option = $("<option>").text("Sample: " + name).val(data);
+        $("#examples").append(option);
+        check();
+      }, "text");
+    });
   });
 
   require.config({
@@ -19,9 +18,16 @@ $(function () {
       'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.33.0/min/vs'
     }
   });
-  require(['vs/editor/editor.main'], start);
+  require(['vs/editor/editor.main'], check());
 
-  function start() {
+  function check() {
+    ++count;
+    if (count == max + 1) {
+      start()
+    }
+  }
+
+  function start () {
     jQuery.support.cors = true;
     var sampleSelect = $("#examples");
     var loading = $("#loading");
