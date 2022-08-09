@@ -2,7 +2,7 @@ name: Check Out of Date
 
 on:
   schedule:
-    - cron: "25 4 * * 0"
+    - cron: "*/5 * * * *"
 
 jobs:
   check:
