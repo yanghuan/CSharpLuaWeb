@@ -15,6 +15,6 @@ jobs:
       shell: powershell
       
     - name: Checkout CSharp.lua
-      if:  ${{ steps.checklastcommit.outputs.isOutDate == 'False' }}
-      run: echo "hello"
+      #if:  ${{ steps.checklastcommit.outputs.isOutDate == 'False' }}
+      run: echo ${{steps.checklastcommit.outputs.isOutDate}}
       shell: cmd
