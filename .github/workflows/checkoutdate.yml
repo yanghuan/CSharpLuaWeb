@@ -1,0 +1,22 @@
+name: Check Out of Date
+
+on:
+  schedule:
+    - cron: "25 4 * * 0"
+
+jobs:
+  check:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    - name: Check Last Commit
+      id: checklastcommit
+      run: checkoutdate.ps1
+      shell: powershell
+      
+    - name: Checkout CSharp.lua
+      if:  ${{ steps.checklastcommit.outputs.isOutDate == 'False' }}
+      run: echo "hello"
+      shell: cmd
