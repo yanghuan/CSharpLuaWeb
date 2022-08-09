@@ -11,7 +11,7 @@ jobs:
       
     - name: Check Last Commit
       id: checklastcommit
-      run: checkoutdate.ps1
+      run: .\checkoutdate.ps1
       shell: powershell
       
     - name: Checkout CSharp.lua
