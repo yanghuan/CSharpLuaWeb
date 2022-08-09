@@ -18,7 +18,7 @@ $(function () {
       'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.33.0/min/vs'
     }
   });
-  require(['vs/editor/editor.main'], check());
+  require(['vs/editor/editor.main'], check);
 
   function check() {
     ++count;
