@@ -27,9 +27,4 @@
       <HintPath>..\files\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
     </Reference>
   </ItemGroup>
-
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="xcopy ..\..\CSharp.lua\CSharp.lua.Launcher\bin\Release\PublishOutput\System.xml  wwwroot\ /s /y" />
-  </Target>
-
 </Project>
