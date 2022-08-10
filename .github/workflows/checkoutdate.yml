@@ -13,6 +13,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       with:
+        persist-credentials: false
         ref: ${{ github.head_ref }}
       
     - name: Check Last Commit
@@ -21,12 +22,12 @@ jobs:
       shell: powershell
       
     - name: Create New CSharp.lua dll
-      if: ${{steps.checklastcommit.outputs.isOutDate}} == 'True'
+      if: ${{ steps.checklastcommit.outputs.isOutDate == 'True' }}
       run: createnewfiles
       shell: cmd
       
     - name: Commit
-      if: ${{steps.checklastcommit.outputs.isOutDate}} == 'True'
+      if: ${{ steps.checklastcommit.outputs.isOutDate == 'True' }}
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: Apply CSharp.lua changes
