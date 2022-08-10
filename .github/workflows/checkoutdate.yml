@@ -1,20 +1,35 @@
 name: Check Out of Date
 
 on: [push]
+permissions:
+  contents: write
 
 jobs:
   check:
     runs-on: windows-latest
+    outputs:
+      isOutDate: ${{steps.checklastcommit.outputs.isOutDate}}
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      
     - name: Check Last Commit
       id: checklastcommit
       run: .\checkoutdate.ps1
       shell: powershell
       
-    - name: Checkout CSharp.lua
-      if:  ${{steps.checklastcommit.outputs.isOutDate}} == 'True'
-      run: echo ${{steps.checklastcommit.outputs.isOutDate}}
+  work:
+    runs-on: windows-latest
+    concurrency: ci-${{ github.ref }} 
+    needs: check
+    if: needs.check.outputs.isOutDate == 'True'
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    
+    - name: Create New CSharp.lua dll
+      run: createnewfiles
       shell: cmd
+      
+    - name: Commit files
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: "./bin/files"
+        commit-message: "Github Action Auto Commit Files"
