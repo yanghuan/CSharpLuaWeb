@@ -7,8 +7,7 @@ permissions:
 jobs:
   check:
     runs-on: windows-latest
-    outputs:
-      isOutDate: ${{steps.checklastcommit.outputs.isOutDate}}
+    concurrency: ci-${{ github.ref }} 
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -18,17 +17,13 @@ jobs:
       run: .\checkoutdate.ps1
       shell: powershell
       
-  work:
-    runs-on: windows-latest
-    concurrency: ci-${{ github.ref }} 
-    needs: check
-    if: needs.check.outputs.isOutDate == 'True'
-    steps:
     - name: Create New CSharp.lua dll
+      if: ${{steps.checklastcommit.outputs.isOutDate}} == 'True'
       run: createnewfiles
       shell: cmd
       
     - name: Commit files
+      if: ${{steps.checklastcommit.outputs.isOutDate}} == 'True'
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         folder: "./bin/files"
