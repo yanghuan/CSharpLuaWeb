@@ -39,6 +39,6 @@ jobs:
               
   deploy-pages:
     needs: check
-    #if: ${{ needs.check.outputs.isOutDate == 'True' }}
+    if: ${{ needs.check.outputs.isOutDate == 'True' }}
     uses: ./.github/workflows/pages.yml
     secrets: inherit
