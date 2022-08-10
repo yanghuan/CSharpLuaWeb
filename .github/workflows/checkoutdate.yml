@@ -32,6 +32,6 @@ jobs:
         commit_message: Apply CSharp.lua changes
         branch: main
         commit_options: '--no-verify --signoff'
-        file_pattern: bin/files/*.*
-        repository: ./files
+        file_pattern: files/*.*
+        repository: .
         

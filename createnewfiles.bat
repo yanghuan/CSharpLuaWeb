@@ -8,3 +8,4 @@ mkdir %filesDir%
 xcopy %compilerPublishDir%\System.xml %filesDir% /y
 xcopy %compilerPublishDir%\CSharp.lua.dll %filesDir% /y
 xcopy %compilerPublishDir%\Microsoft.CodeAnalysis* %filesDir% /y
+xcopy %filesDir% files /y

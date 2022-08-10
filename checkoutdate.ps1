@@ -6,4 +6,5 @@ $webResponse = Invoke-RestMethod -Uri "https://api.github.com/repos/yanghuan/CSh
 $lastWebCommitDate = [datetime]($webResponse[0].commit.author.date)
 echo lastWebCommitDate: $lastWebCommitDate
 $isOutDate = $lastWebCommitDate -le $lastCompilerCommitDate
+echo isOutDate: $isOutDate
 echo "::set-output name=isOutDate::$isOutDate"
