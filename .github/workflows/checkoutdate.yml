@@ -1,8 +1,10 @@
 name: Check Out of Date
 
-on: [push]
-permissions:
-  contents: write
+on: 
+  schedule:
+  - cron: '0 12 * * 0'
+    
+  workflow_dispatch:
 
 jobs:
   check:
@@ -13,7 +15,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       with:
-        persist-credentials: false
         ref: ${{ github.head_ref }}
       
     - name: Check Last Commit
@@ -36,3 +37,7 @@ jobs:
         file_pattern: files/*.*
         repository: .
         
+    - name: Call Deploy Pages Workflow
+      if: ${{ steps.checklastcommit.outputs.isOutDate == 'True' }}
+      uses: ./.github/workflows/pages.yml
+      secrets: inherit
