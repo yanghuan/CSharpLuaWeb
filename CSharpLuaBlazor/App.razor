@@ -1,0 +1,23 @@
+@inject IJSRuntime js_
+@inject HttpClient client_
+
+@code {
+  [JSInvokable]
+  public static Task<string> Compile(string code)
+  {
+    return Compiler.Compile(code);
+  }
+
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    if (firstRender)
+    {
+      await Compiler.Init(client_);
+      await js_.InvokeVoidAsync("start");
+    } 
+    else
+    {
+      await Task.CompletedTask;
+    }
+  }
+}

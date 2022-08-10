@@ -47,6 +47,6 @@ jobs:
     - name: Commit files
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        folder: "files"
+        folder: "./"
         branch: "main"
         commit-message: "Github Action Auto Commit Files"
