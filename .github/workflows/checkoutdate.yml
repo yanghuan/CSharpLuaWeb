@@ -40,4 +40,3 @@ jobs:
     - name: Call Deploy Pages Workflow
       if: ${{ steps.checklastcommit.outputs.isOutDate == 'True' }}
       uses: ./.github/workflows/pages.yml
-      secrets: inherit
