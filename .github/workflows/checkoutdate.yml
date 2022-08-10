@@ -7,7 +7,8 @@ permissions:
 jobs:
   check:
     runs-on: windows-latest
-    concurrency: ci-${{ github.ref }} 
+    outputs:
+      isOutDate: ${{steps.checklastcommit.outputs.isOutDate}}
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -22,9 +23,30 @@ jobs:
       run: createnewfiles
       shell: cmd
       
-    - name: Commit files
+    - name: Upload Files
       if: ${{steps.checklastcommit.outputs.isOutDate}} == 'True'
+      uses: actions/upload-artifact@v1
+      with:
+        name: files
+        path: "./bin/files"
+
+  commit:
+    runs-on: ubuntu-latest
+    concurrency: ci-${{ github.ref }} 
+    needs: check
+    if: needs.check.outputs.isOutDate == 'True'
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    - name: Download Files
+      uses: actions/download-artifact@v1  
+      with: 
+        name: files
+      
+    - name: Commit files
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        folder: "./bin/files"
+        folder: "files"
+        branch: "main"
         commit-message: "Github Action Auto Commit Files"
