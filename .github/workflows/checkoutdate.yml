@@ -10,6 +10,9 @@ jobs:
     outputs:
       isOutDate: ${{steps.checklastcommit.outputs.isOutDate}}
     steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      
     - name: Check Last Commit
       id: checklastcommit
       run: .\checkoutdate.ps1
@@ -21,9 +24,6 @@ jobs:
     needs: check
     if: needs.check.outputs.isOutDate == 'True'
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-    
     - name: Create New CSharp.lua dll
       run: createnewfiles
       shell: cmd
