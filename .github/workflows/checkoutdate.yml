@@ -12,6 +12,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+      with:
+        ref: ${{ github.head_ref }}
       
     - name: Check Last Commit
       id: checklastcommit
@@ -23,30 +25,13 @@ jobs:
       run: createnewfiles
       shell: cmd
       
-    - name: Upload Files
+    - name: Commit
       if: ${{steps.checklastcommit.outputs.isOutDate}} == 'True'
-      uses: actions/upload-artifact@v1
+      uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        name: files
-        path: "./bin/files"
-
-  commit:
-    runs-on: ubuntu-latest
-    concurrency: ci-${{ github.ref }} 
-    needs: check
-    if: ${{needs.check.outputs.isOutDate}} == 'True'
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      
-    - name: Download Files
-      uses: actions/download-artifact@v1  
-      with: 
-        name: files
-      
-    - name: Commit files
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        folder: "./"
-        branch: "main"
-        commit-message: "Github Action Auto Commit Files"
+        commit_message: Apply CSharp.lua changes
+        branch: main
+        commit_options: '--no-verify --signoff'
+        file_pattern: bin/files/*.*
+        repository: ./files
+        
