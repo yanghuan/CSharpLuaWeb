@@ -38,7 +38,9 @@ jobs:
         repository: .
               
   deploy-pages:
+    runs-on: ubuntu-latest
     needs: check
-    if: ${{ needs.check.outputs.isOutDate == 'True' }}
-    uses: ./.github/workflows/pages.yml
-    secrets: inherit
+    steps:
+    - name: Invoke Deploy Pages
+      #if: ${{ needs.check.outputs.isOutDate == 'True' }}  
+      uses: ./.github/workflows/pages.yml
