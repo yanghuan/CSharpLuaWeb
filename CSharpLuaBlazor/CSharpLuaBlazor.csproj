@@ -23,4 +23,8 @@
       <HintPath>..\files\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="$(ProjectDir)/outcsfiles.bat" />
+  </Target>
 </Project>

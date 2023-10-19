@@ -1,11 +1,14 @@
 $(function () {
+  let baseUrl = "https://raw.githubusercontent.com/yanghuan/CSharpLuaWeb/main/CSharpLuaBlazor/wwwroot/"
   let max = 100
   let count = 0
-  $.getJSON("https://api.github.com/repos/yanghuan/CSharpLuaWeb/contents/CSharpLuaBlazor/wwwroot/csharp-codes", function (data) {
-    max = data.length
-    $.each(data, function (k, v) {
-      let name = v.name.split('.')[0].replace("-", " ")
-      $.get(v.download_url, function (data) {
+  $.get(baseUrl + "codefiles.txt", function (data){
+    let fileNames = data.split("\r\n").filter(i => i.length > 0);
+    max = fileNames.length;
+    $.each(fileNames, function (k, v) {
+      let downloadUrl = baseUrl + "csharp-codes/" + v
+      $.get(downloadUrl, function (data) {
+        let name = v.split('.')[0].replace("-", " ")
         var option = $("<option>").text("Sample: " + name).val(data);
         $("#examples").append(option);
         check();
