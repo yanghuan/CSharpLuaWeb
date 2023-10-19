@@ -3,7 +3,7 @@ $(function () {
   let max = 100
   let count = 0
   $.get(baseUrl + "codefiles.txt", function (data){
-    let fileNames = data.split("\r\n").filter(i => i.length > 0);
+    let fileNames = data.split("\n").filter(i => i.length > 0);
     max = fileNames.length;
     $.each(fileNames, function (k, v) {
       let downloadUrl = baseUrl + "csharp-codes/" + v
